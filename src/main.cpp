@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <timer.hpp>
 
 #include "day0.hpp"
 #include "day1.hpp"
@@ -22,8 +21,6 @@ int main(int argc, char* argv[]) {
 
     cout << "Solution for day " << day << ":" << endl << endl;
 
-    Timer * timer = new Timer();
-
     switch (day) {
         case 0:
             day0::solve();
@@ -37,8 +34,6 @@ int main(int argc, char* argv[]) {
         default:
             cout << "Day " << day << " is not implemented yet." << endl;
     }
-
-    cout << endl << "Execution time: " << timer->elapsed() << " seconds" << endl;
 
     return 0;
 }

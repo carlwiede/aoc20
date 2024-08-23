@@ -16,6 +16,10 @@ public:
         return std::chrono::duration<double>(end_time_point - start_time_point).count();
     }
 
+    void print_elapsed() const {
+        std::cout << "Execution time: " << elapsed() << " seconds" << std::endl;
+    }
+
 private:
     std::chrono::time_point<std::chrono::high_resolution_clock> start_time_point;
 };
