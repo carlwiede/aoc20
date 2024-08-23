@@ -1,13 +1,16 @@
 #ifndef DAY0_HPP
 #define DAY0_HPP
 
-#include <string>
-#include <vector>
+#include "day.hpp"
 
-namespace day0 {
-    void solve();
-    void part1(std::vector<std::string>);
-    void part2(std::vector<std::string>);
-}
+class Day0 : public Day {
+    void part1(vector<string> input) override {
+        cout << "Part 1 not implemented." << endl;
+    }
+
+    void part2(vector<string> input) override {
+        cout << "Part 2 not implemented." << endl;
+    }
+};
 
 #endif

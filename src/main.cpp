@@ -1,9 +1,6 @@
 #include <iostream>
-#include <string>
 
-#include "day0.hpp"
-#include "day1.hpp"
-#include "day2.hpp"
+#include "alldays.hpp"
 
 using namespace std;
 
@@ -21,18 +18,26 @@ int main(int argc, char* argv[]) {
 
     cout << "Solution for day " << day << ":" << endl << endl;
 
+    Day* solver = nullptr;
+
     switch (day) {
         case 0:
-            day0::solve();
+            solver = new Day0();
             break;
         case 1:
-            day1::solve();
+            solver = new Day1();
             break;
         case 2:
-            day2::solve();
+            solver = new Day2();
             break;
         default:
             cout << "Day " << day << " is not implemented yet." << endl;
+            return 1;
+    }
+
+    if (solver) {
+        solver->solve("input/day" + to_string(day) + ".txt");
+        delete solver;
     }
 
     return 0;
