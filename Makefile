@@ -1,22 +1,26 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Iinclude
 
-SRC_DIR = src
 BIN_DIR = bin
+INCLUDE_DIR = include
 OBJ_DIR = obj
+SRC_DIR = src
+EXECUTABLE = $(BIN_DIR)/aoc
 
-SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
-OBJECTS = $(SOURCES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
-EXECUTABLE = aoc
+MAIN_SRC = $(SRC_DIR)/main.cpp
+SRC_HEADERS = $(wildcard $(SRC_DIR)/*.hpp)
+INCLUDE_HEADERS = $(wildcard $(INCLUDE_DIR)/*.hpp)
+MAIN_OBJ = $(OBJ_DIR)/main.o
 
 .PHONY: all clean run
 
 all: $(EXECUTABLE)
 
-$(EXECUTABLE): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) -o $(EXECUTABLE) $(OBJECTS)
+$(EXECUTABLE): $(MAIN_OBJ)
+	@mkdir -p $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) -o $@ $(MAIN_OBJ)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+$(MAIN_OBJ): $(MAIN_SRC) $(SRC_HEADERS) $(INCLUDE_HEADERS)
 	@mkdir -p $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
@@ -24,4 +28,4 @@ run: $(EXECUTABLE)
 	@./$(EXECUTABLE) $(day)
 
 clean:
-	rm -rf $(OBJ_DIR) $(EXECUTABLE)
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
