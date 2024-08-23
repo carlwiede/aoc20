@@ -29,6 +29,17 @@ public:
 
         return lines;
     }
+
+    static vector<string> split(string src, string delim) {
+        vector<string> tokens;
+        int delimIndex;
+        while ((delimIndex = src.find(delim)) >= 0) {
+            tokens.push_back(src.substr(0, delimIndex));
+            src = src.substr(delimIndex + 1);
+        }
+        tokens.push_back(src);
+        return tokens;
+    }
 };
 
 #endif

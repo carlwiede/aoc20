@@ -5,6 +5,12 @@
 
 class Day2 : public Day {
     void part1(vector<string> input) override {
+        vector<string> parts = Utils::split(input.at(0), " ");
+
+        for (string part : parts) {
+            cout << part << endl;
+        }
+
         cout << "Part 1 not implemented." << endl;
     }
 
