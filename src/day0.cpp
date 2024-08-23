@@ -4,20 +4,17 @@
 #include <iostream>
 #include <string>
 
+#include "utils.hpp"
+
 using namespace std;
 
 namespace day0 {
     void solve() {
         cout << "Solution for day 0:" << endl;
 
-        ifstream file("input/day0.txt");
-        if (!file.is_open()) {
-            cerr << "Failed to open file for day 0." << endl;
-            return;
-        }
+        vector<string> input = Utils::readFile("input/day0.txt");
 
-        string line;
-        while (getline(file, line)) {
+        for (string line : input) {
             cout << line << endl;
         }
     }
