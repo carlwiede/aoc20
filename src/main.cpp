@@ -20,6 +20,8 @@ int main(int argc, char* argv[]) {
 
     int day = stoi(argv[1]);
 
+    cout << "Solution for day " << day << ":" << endl << endl;
+
     Timer * timer = new Timer();
 
     switch (day) {
@@ -36,7 +38,7 @@ int main(int argc, char* argv[]) {
             cout << "Day " << day << " is not implemented yet." << endl;
     }
 
-    cout << "Execution time: " << timer->elapsed() << " seconds" << endl;
+    cout << endl << "Execution time: " << timer->elapsed() << " seconds" << endl;
 
     return 0;
 }

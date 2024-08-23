@@ -10,8 +10,6 @@ using namespace std;
 
 namespace day0 {
     void solve() {
-        cout << "Solution for day 0:" << endl;
-
         vector<string> input = Utils::readFile("input/day0.txt");
 
         for (string line : input) {
