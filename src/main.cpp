@@ -18,22 +18,7 @@ int main(int argc, char* argv[]) {
 
     cout << "Solution for day " << day << ":" << endl << endl;
 
-    Day* solver = nullptr;
-
-    switch (day) {
-        case 0:
-            solver = new Day0();
-            break;
-        case 1:
-            solver = new Day1();
-            break;
-        case 2:
-            solver = new Day2();
-            break;
-        default:
-            cout << "Day " << day << " is not implemented yet." << endl;
-            return 1;
-    }
+    Day* solver = alldays::resolveDay(day);
 
     if (solver) {
         solver->solve("input/day" + to_string(day) + ".txt");
