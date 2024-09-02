@@ -6,21 +6,19 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 class Utils {
 public:
-    static vector<string> readFile(const string filename) {
-        vector<string> lines;
+    static std::vector<std::string> readFile(const std::string filename) {
+        std::vector<std::string> lines;
 
-        ifstream file(filename);
+        std::ifstream file(filename);
 
         if (!file.is_open()) {
-            cerr << "Failed to open file " << filename << endl;
+            std::cerr << "Failed to open file " << filename << std::endl;
             return lines;
         }
 
-        string line;
+        std::string line;
         while (getline(file, line)) {
             lines.push_back(line);
         }
@@ -30,8 +28,8 @@ public:
         return lines;
     }
 
-    static vector<string> split(string src, string delim) {
-        vector<string> tokens;
+    static std::vector<std::string> split(std::string src, std::string delim) {
+        std::vector<std::string> tokens;
         int delimIndex;
         while ((delimIndex = src.find(delim)) >= 0) {
             tokens.push_back(src.substr(0, delimIndex));

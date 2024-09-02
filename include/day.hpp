@@ -7,6 +7,8 @@
 #include "timer.hpp"
 #include "utils.hpp"
 
+using namespace std;
+
 class Day {
 public:
     void solve(const std::string filename) {
