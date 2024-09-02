@@ -7,6 +7,7 @@
 #include "day3.hpp"
 #include "day4.hpp"
 #include "day5.hpp"
+#include "day6.hpp"
 
 namespace alldays {
     Day* resolveDay(int day) {
@@ -23,6 +24,8 @@ namespace alldays {
             return new Day4();
         case 5:
             return new Day5();
+        case 6:
+            return new Day6();
         default:
             cout << "Day " << day << " is not implemented yet." << endl;
             return nullptr;
