@@ -7,22 +7,31 @@
 
 class Day6 : public Day {
 
-    int getIntersectSize(set<char> set1, set<char> set2) {
-        set<char> unionSet;
+    set<char> getAlphabet() {
+        set<char> alphabet;
+        for (char c = 'a'; c <= 'z'; c++) {
+            alphabet.insert(c);
+        }
+        return alphabet;
+    }
+
+    set<char> getIntersect(set<char> set1, set<char> set2) {
+        set<char> intersectSet;
         set_intersection(set1.begin(), set1.end(),
                          set2.begin(), set2.end(),
-                         inserter(unionSet, unionSet.begin()));
-        return unionSet.size();
+                         inserter(intersectSet, intersectSet.begin()));
+        return intersectSet;
+    }
+
+    int getIntersectSize(set<char> set1, set<char> set2) {
+        getIntersect(set1, set2).size();
     }
 
     void part1(vector<string> input) override {
 
         int total = 0;
 
-        set<char> alphabet;
-        for (char c = 'a'; c <= 'z'; c++) {
-            alphabet.insert(c);
-        }
+        set<char> alphabet = getAlphabet();
 
         set<char> groupLetters;
         for (string line : input) {
@@ -39,7 +48,23 @@ class Day6 : public Day {
     }
 
     void part2(vector<string> input) override {
-        cout << "Part 2 not implemented." << endl;
+
+        int total = 0;
+
+        set<char> charactersEveryoneHas = getAlphabet();
+        for (string line : input) {
+            if (line.empty()) {
+                total += charactersEveryoneHas.size();
+                charactersEveryoneHas = getAlphabet();
+            } else {
+                set<char> currentLineCharacters;
+                for (char c : line) currentLineCharacters.insert(c);
+                charactersEveryoneHas = getIntersect(charactersEveryoneHas, currentLineCharacters);
+            }
+        }
+        total += charactersEveryoneHas.size();
+
+        cout << "The total sum is " << total << endl;
     }
 };
 
