@@ -24,7 +24,7 @@ class Day6 : public Day {
     }
 
     int getIntersectSize(set<char> set1, set<char> set2) {
-        getIntersect(set1, set2).size();
+        return getIntersect(set1, set2).size();
     }
 
     void part1(vector<string> input) override {
