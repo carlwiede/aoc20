@@ -10,6 +10,19 @@ class Day7 : public Day {
 
     map<string, vector<tuple<int, string>>> bagMap;
 
+    int totalBagsInBag(string bagName) {
+        int containedBags = 0;
+
+        vector<tuple<int,string>> bags = bagMap[bagName];
+        for (tuple<int,string> bag : bags) {
+            int numberOfBags = get<0>(bag);
+            string containedBagName = get<1>(bag);
+            containedBags += numberOfBags + numberOfBags * totalBagsInBag(containedBagName);
+        }
+
+        return containedBags;
+    }
+
     bool eventuallyContainsGold(string bagName) {
         vector<tuple<int, string>> bags = bagMap[bagName];
         bool containsGold = false;
@@ -17,6 +30,7 @@ class Day7 : public Day {
         for (tuple<int,string> bag : bags) {
             if (get<1>(bag) == "shiny gold") return true;
             containsGold |= eventuallyContainsGold(get<1>(bag));
+            if (containsGold) return true; // OPTIMIZED BABY, cuts execution time by ~3
         }
 
         return containsGold;
@@ -62,7 +76,9 @@ class Day7 : public Day {
     }
 
     void part2(vector<string> input) override {
-        cout << "Part 2 not implemented." << endl;
+        bagMap = getBagMap(input);
+        int totalBagsInShinyBag = totalBagsInBag("shiny gold");
+        cout << "Shiny gold contains " << totalBagsInShinyBag << " other bags" << endl;
     }
 };
 
