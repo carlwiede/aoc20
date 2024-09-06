@@ -33,7 +33,7 @@ public:
         int delimIndex;
         while ((delimIndex = src.find(delim)) >= 0) {
             tokens.push_back(src.substr(0, delimIndex));
-            src = src.substr(delimIndex + 1);
+            src = src.substr(delimIndex + delim.size());
         }
         tokens.push_back(src);
         return tokens;
