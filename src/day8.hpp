@@ -24,8 +24,8 @@ class Day8 : public Day {
         }
     }
 
-    map<int, tuple<Instruction, int, bool>> readInstructions(vector<string> input) {
-        map<int, tuple<Instruction, int, bool>> instructions;
+    map<int, tuple<Instruction, int, bool>> readProgram(vector<string> input) {
+        map<int, tuple<Instruction, int, bool>> program;
         int lineCounter = 1;
 
         for (string line : input) {
@@ -33,42 +33,92 @@ class Day8 : public Day {
             Instruction inst = determineInstruction(splitLine.at(0));
             int value = stoi(splitLine.at(1));
 
-            instructions[lineCounter] = make_tuple(inst, value, false);
+            program[lineCounter] = make_tuple(inst, value, false);
 
             lineCounter++;
         }
 
-        return instructions;
+        return program;
     }
 
-    int run(map<int, tuple<Instruction, int, bool>> instructions) {
-        int pc = 1;
-        int acc_total = 0;
+    int getAcc(map<int, tuple<Instruction, int, bool>> program) {
+        size_t pc = 1;
+        int accTotal = 0;
 
-        while (!get<2>(instructions[pc])) {
-            switch (get<0>(instructions[pc])) {
+        while (!get<2>(program[pc])) {
+            if (pc >= program.size()) break;
+            switch (get<0>(program[pc])) {
                 case nop:
                     break;
                 case jmp:
-                    pc += get<1>(instructions[pc]);
+                    pc += get<1>(program[pc]);
                     continue;
                 case acc:
-                    acc_total += get<1>(instructions[pc]);
+                    accTotal += get<1>(program[pc]);
             }
-            get<2>(instructions[pc]) = true;
+            get<2>(program[pc]) = true;
             pc++;
         }
 
-        return acc_total;
+        return accTotal;
+    }
+
+    bool isValidProgram(map<int, tuple<Instruction, int, bool>> program) {
+        size_t pc = 1;
+
+        while (!get<2>(program[pc])) {
+
+            if (pc == program.size()) return true;
+            else if (pc > program.size()) return false;
+
+            switch (get<0>(program[pc])) {
+                case nop:
+                    break;
+                case jmp:
+                    pc += get<1>(program[pc]);
+                    continue;
+                case acc:
+                    break;
+            }
+
+            get<2>(program[pc]) = true;
+            pc++;
+        }
+
+        return false;
+    }
+
+    int getCorrectedAcc(map<int, tuple<Instruction, int, bool>> program) {
+        map<int, tuple<Instruction, int, bool>> newProgram;
+
+        for (size_t line = 1; line <= program.size(); line++) {
+            newProgram = program;
+            Instruction inst = get<0>(newProgram[line]);
+            switch (inst) {
+                case nop:
+                    get<0>(newProgram[line]) = jmp;
+                    break;
+                case jmp:
+                    get<0>(newProgram[line]) = nop;
+                    break;
+                case acc:
+                    continue;
+            }
+
+            if (isValidProgram(newProgram)) return getAcc(newProgram);
+        }
+
+        return 0;
     }
 
     void part1(vector<string> input) override {
-        int acc = run(readInstructions(input));
+        int acc = getAcc(readProgram(input));
         cout << "In the end, acc is " << acc << endl;
     }
 
     void part2(vector<string> input) override {
-        cout << "Part 2 not implemented." << endl;
+        int acc = getCorrectedAcc(readProgram(input));
+        cout << "Corrected acc is " << acc << endl;
     }
 };
 
