@@ -4,13 +4,14 @@
 
 using namespace std;
 
-void print_usage() {
-    cout << "Usage: ./aoc <day>" << endl;
+void printUsage() {
+    cout << "Usage: make run day=<day>" << endl;
 }
 
 int main(int argc, char* argv[]) {
+
     if (argc != 2) {
-        print_usage();
+        printUsage();
         return 1;
     }
 
@@ -18,11 +19,11 @@ int main(int argc, char* argv[]) {
 
     cout << "Solution for day " << day << ":" << endl << endl;
 
-    Day* solver = alldays::resolveDay(day);
+    Day* selectedDay = alldays::resolveDay(day);
 
-    if (solver) {
-        solver->solve("input/day" + to_string(day) + ".txt");
-        delete solver;
+    if (selectedDay) {
+        selectedDay->solve("input/day" + to_string(day) + ".txt");
+        delete selectedDay;
     }
 
     return 0;
