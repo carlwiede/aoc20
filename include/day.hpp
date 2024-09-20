@@ -12,7 +12,14 @@ using namespace std;
 class Day {
 public:
     void solve(const std::string filename) {
-        std::vector<std::string> input = Utils::readFile(filename);
+        vector<string> input;
+
+        try {
+            input = Utils::readFile(filename);
+        } catch (runtime_error& e) {
+            cout << e.what() << endl;
+            return;
+        }
 
         Timer * timer = new Timer();
 

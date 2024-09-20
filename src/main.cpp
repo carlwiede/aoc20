@@ -15,15 +15,21 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    int day = stoi(argv[1]);
+    int dayNumber;
+    try {
+        dayNumber = stoi(argv[1]);
+    } catch (invalid_argument& e) {
+        cout << "That's not even a number." << endl;
+        return 0;
+    }
 
-    cout << "Solution for day " << day << ":" << endl << endl;
-
-    Day* selectedDay = alldays::resolveDay(day);
+    Day* selectedDay = alldays::resolveDay(dayNumber);
 
     if (selectedDay) {
-        selectedDay->solve("input/day" + to_string(day) + ".txt");
+        selectedDay->solve("input/day" + to_string(dayNumber) + ".txt");
         delete selectedDay;
+    } else {
+        cout << "Day " << dayNumber << " is not implemented yet." << endl;
     }
 
     return 0;

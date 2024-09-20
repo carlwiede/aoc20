@@ -14,8 +14,7 @@ public:
         std::ifstream file(filename);
 
         if (!file.is_open()) {
-            std::cerr << "Failed to open file " << filename << std::endl;
-            return lines;
+            throw std::runtime_error("Failed to open file '" + filename + "'");
         }
 
         std::string line;
