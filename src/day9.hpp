@@ -4,10 +4,11 @@
 #include "day.hpp"
 
 #include <deque>
+#include <numeric>
 
 class Day9 : public Day {
 
-    bool isValidSum(deque<int> &preamble, int value) {
+    bool isValidSum(deque<long> &preamble, int value) {
 
         for (size_t i = 0; i < preamble.size() - 1; i++) {
             if (preamble[i] >= value) continue;
@@ -23,7 +24,7 @@ class Day9 : public Day {
 
         size_t lineIndex = 0;
         long firstNoSum = 0;
-        deque<int> preamble;
+        deque<long> preamble;
 
         for (;lineIndex < 25; lineIndex++) {
             preamble.push_back(stoi(input.at(lineIndex)));
@@ -43,7 +44,44 @@ class Day9 : public Day {
     }
 
     void part2(vector<string> input) override {
-        cout << "Part 2 not implemented." << endl;
+
+        size_t lineIndex = 0;
+        long firstNoSum = 0;
+        deque<long> preamble;
+
+        for (;lineIndex < 25; lineIndex++) {
+            preamble.push_back(stoi(input.at(lineIndex)));
+        }
+
+        for (;lineIndex < input.size(); lineIndex++) {
+            long val = stol(input.at(lineIndex));
+            if (!isValidSum(preamble, val)) {
+                firstNoSum = val;
+                break;
+            }
+            preamble.pop_front();
+            preamble.push_back(val);
+        }
+
+        // Rewind
+        long min, max;
+
+        for (;lineIndex > 0; lineIndex--) {
+            vector<long> contiguous;
+            for (int i = lineIndex - 1; i >= 0; i--) {
+                long val = stol(input.at(i));
+                contiguous.push_back(val);
+                long sum = accumulate(contiguous.begin(), contiguous.end(), 0LL);
+
+                if (sum > firstNoSum) break;
+                else if (sum == firstNoSum) {
+                    min = *min_element(contiguous.begin(), contiguous.end());
+                    max = *max_element(contiguous.begin(), contiguous.end());
+                    cout << "Sum from contiguous is " << min + max << endl;
+                    return;
+                }
+            }
+        }
     }
 };
 
