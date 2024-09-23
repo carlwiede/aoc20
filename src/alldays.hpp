@@ -12,6 +12,7 @@
 #include "day8.hpp"
 #include "day9.hpp"
 #include "day10.hpp"
+#include "day11.hpp"
 
 namespace alldays {
     Day* resolveDay(int day) {
@@ -38,6 +39,8 @@ namespace alldays {
             return new Day9();
         case 10:
             return new Day10();
+        case 11:
+            return new Day11();
         default:
             return nullptr;
         }
